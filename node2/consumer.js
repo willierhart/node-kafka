@@ -2,23 +2,27 @@ const avro = require('avsc');
 const kafka = require('kafka-node');
 
 var typeDescription = {
-    name: 'MyAwesomeType',
+    name: 'MessageType',
     type: 'record',
     fields: [
       {
         name: 'id',
         type: 'string'
       }, {
+        name: 'text',
+        type: 'string'
+      }, {
         name: 'timestamp',
         type: 'double'
-      }, {
+      }, 
+      /*{
         name: 'enumField',
         type: {
           name: 'EnumField',
           type: 'enum',
           symbols: ['sym1', 'sym2', 'sym3']
         }
-      }]
+      }*/]
 };
   
 var type = avro.parse(typeDescription);
@@ -43,7 +47,7 @@ var consumer = new HighLevelConsumer(client, topics, options);
 consumer.on('message', function(message) {
     var buf = new Buffer(message.value, 'binary'); // Read string into a buffer.
     var decodedMessage = type.fromBuffer(buf.slice(0)); // Skip prefix.
-    console.log(decodedMessage);
+    console.log(decodedMessage.text);
 });
   
 consumer.on('error', function(err) {

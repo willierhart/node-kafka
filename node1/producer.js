@@ -4,23 +4,27 @@ const uuidv4 = require('uuid/v4');
 const sleep = require('sleep');
 
 var avroSchema = {
-    name: 'MyAwesomeType',
+    name: 'MessageType',
     type: 'record',
     fields: [
       {
         name: 'id',
         type: 'string'
       }, {
+        name: 'text',
+        type: 'string'
+      }, {
         name: 'timestamp',
         type: 'double'
-      }, {
+      }, 
+      /*{
         name: 'enumField',
         type: {
           name: 'EnumField',
           type: 'enum',
           symbols: ['sym1', 'sym2', 'sym3']
         }
-      }]
+      }*/]
 };
 
 var type = avro.parse(avroSchema);
@@ -46,12 +50,13 @@ var producer = new HighLevelProducer(client);
 producer.on('ready', function() {
   //Send payload x times to Kafka and log result/error
   for(var i = 0; i < 10; i++){
-      
+
     // Create message and encode to Avro buffer
     var messageBuffer = type.toBuffer({
-        enumField: 'sym1',
         id: uuidv4(),
-        timestamp: Date.now()
+        text: "Willi " + uuidv4(),
+        timestamp: Date.now(),
+        /* enumField: 'sym1' */
     });
 
     // Create a new payload
