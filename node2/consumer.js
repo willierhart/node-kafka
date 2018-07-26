@@ -45,9 +45,10 @@ var options = {
 var consumer = new HighLevelConsumer(client, topics, options);
   
 consumer.on('message', function(message) {
-    var buf = new Buffer(message.value, 'binary'); // Read string into a buffer.
+    var buf = new Buffer.from(message.value, 'binary'); // Read string into a buffer.
     var decodedMessage = type.fromBuffer(buf.slice(0)); // Skip prefix.
-    console.log(decodedMessage.text);
+    /* console.log(decodedMessage.text); */
+    console.log(decodedMessage);
 });
   
 consumer.on('error', function(err) {
