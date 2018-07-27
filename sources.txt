@@ -17,18 +17,33 @@ docker pull landoop/kafka-topics-ui
                -e "PROXY=true" \
                landoop/kafka-topics-ui
 
+RabbitMQ
+Enable WebInterface Plugin: sbin/rabbitmq-plugins enable rabbitmq_management
+Start RabbitMQ: sbin/rabbitmq-server 
+List Queues: sudo sbin/rabbitmqctl list_queues
+
+
+- https://www.rabbitmq.com/install-standalone-mac.html
+
 Node
-Start Producer: node1/node producer.js
-Start Consumer: node2/node consumer.js
+Kafka
+Start Producer: node1/node kafka_producer.js
+Start Consumer: node2/node kafka_consumer.js
 - https://blog.mimacom.com/apache-kafka-with-node-js/
-NPM Libs that are used:
-//$ npm install kafka-node
-//$ npm install avsc
+
+RabbitMQ
+Start Producer: node1/node rabbitmq_producer.js
+Start Consumer: 
+- https://www.rabbitmq.com/tutorials/tutorial-one-javascript.html
 
 React
 - TODO
 
 Endpoints
+RabbitMQ 
+- WebInterface: http://localhost:15672/ (guest/guest)
+
+Kafka
 - Kafka Topics UI   http://localhost:8000
 - Kafka Rest Api    http://localhost:8082 
 - Schema Registry   http://localhost:8081 

@@ -1,7 +1,6 @@
 const avro = require('avsc');
 const kafka = require('kafka-node');
 const uuidv4 = require('uuid/v4');
-const sleep = require('sleep');
 
 var avroSchema = {
     name: 'MessageType',
@@ -54,7 +53,7 @@ producer.on('ready', function() {
     // Create message and encode to Avro buffer
     var messageBuffer = type.toBuffer({
         id: uuidv4(),
-        text: "Willi " + uuidv4(),
+        text: "Willi Kafka " + uuidv4(),
         timestamp: Date.now(),
         /* enumField: 'sym1' */
     });
@@ -77,7 +76,7 @@ producer.on('ready', function() {
     }
   );
 }});
-
+  setTimeout(function() { process.exit(0) }, 500);
 // For this demo we just log producer errors to the console.
 producer.on('error', function(error) {
   console.error(error);
